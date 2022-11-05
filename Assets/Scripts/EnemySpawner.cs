@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour
 
     private List<Transform> _points;
 
+    public int SpawnInterval { get; private set; } = 2;
+
     private void Start()
     {
         _points = new List<Transform>();
@@ -23,8 +25,7 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator Spawn()
     {
         Enemy enemy = Instantiate(_enemyTemplate, _points[Random.Range(0, _points.Count)]);
-        yield return new WaitForSeconds(2);
-        Destroy(enemy.gameObject);
+        yield return new WaitForSeconds(SpawnInterval);
         StartCoroutine(Spawn());
     }
 }
